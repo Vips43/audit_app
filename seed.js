@@ -52,3 +52,5 @@ const seedDB = async () => {
 };
 
 seedDB();
+
+// mongodb://vipul:Unit%40616@ac-opc5snz-shard-00-00.jxqmts7.mongodb.net:27017,ac-opc5snz-shard-00-01.jxqmts7.mongodb.net:27017,ac-opc5snz-shard-00-02.jxqmts7.mongodb.net:27017/auditor?ssl=true&replicaSet=atlas-y4q4q4-shard-0&authSource=admin&appName=Cluster0
