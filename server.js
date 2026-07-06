@@ -3,15 +3,19 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import { errorHandler, notFound } from "./middleware/notFound.js";
-import questionRoutes from './routes/questionRoutes.js'
+import questionRoutes from "./routes/questionRoutes.js";
+import morgan from "morgan";
+import bodyParser from "body-parser";
 
 dotenv.config();
 const app = express();
 
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json())
 
-app.use('/api/questions', questionRoutes); 
+app.use("/api/questions", questionRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
@@ -24,9 +28,21 @@ app.get("/api/health", (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
+const mongourl =
+  process.env.NODE_ENV === "development"
+    ? process.env.MONGO_LOCAL
+    : process.env.MONGO_URI;
+
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("mongo connected to audit"))
+  .connect(mongourl)
+  .then((conn) =>
+    console.log(
+      "mongo connected to ",
+      conn.connection.host,
+      "->",
+      conn.connection.name,
+    ),
+  )
   .catch((err) => console.error("Connection aborted: ", err));
 
 app.listen(5000, () => {
