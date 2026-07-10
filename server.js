@@ -3,19 +3,25 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import { errorHandler, notFound } from "./middleware/notFound.js";
-import questionRoutes from "./routes/questionRoutes.js";
 import morgan from "morgan";
 import bodyParser from "body-parser";
+import questionRoutes from "./routes/questionRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import cookieParser from "cookie-parser";
+import { authenticateUser } from "./middleware/authMiddleware.js";
+import User from "./model/userModal.js";
 
 dotenv.config();
 const app = express();
 
 app.use(morgan("dev"));
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.use("/api/questions", questionRoutes);
+app.use("/api/questions", authenticateUser, questionRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({

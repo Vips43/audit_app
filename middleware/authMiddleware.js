@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
-import User from "../model/userModal";
+import User from "../model/userModal.js";
 
 export const authenticateUser = async (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.cookies?.token;
 
   if (!token) return res.status(401).json({ msg: "Authentication Invalid" });
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
       const user = await User.findById(decoded.userId).select("-password");
       if (!user) {
         return res.status(401).json({ msg: "Authentication Invalid" });
@@ -25,16 +25,21 @@ export const authenticateUser = async (req, res, next) => {
 };
 
 export const generateToken = async (res, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRY,
-  });
+  try {
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY, {
+      expiresIn: process.env.JWT_EXPIRY,
+    });
 
-  res.cookies("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "token generation error", error });
+  }
 };
 
 export const authorizeUser = (...roles) => {
