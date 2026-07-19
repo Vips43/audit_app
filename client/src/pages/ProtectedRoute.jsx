@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useAuthStore } from "../store/store";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 function ProtectedRoute() {
-  const { user, setUser } = useAuthStore();
+  const navigate = useNavigate();
 
+  const user = useAuthStore((state) => state.user);
+  
   useEffect(() => {
-    setUser();
-  }, [setUser]);
-
-  if (!user) {
-    return <Navigate to="/" replace />;
-  }
+    if (!user && user === null) {
+      navigate("/");
+    }
+  }, [user, navigate]);
   return <Outlet />;
 }
 

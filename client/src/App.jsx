@@ -6,7 +6,6 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home";
 
-
 const Layout = () => {
   const navigate = useNavigate();
   return (

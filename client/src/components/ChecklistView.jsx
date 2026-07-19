@@ -13,11 +13,7 @@ export const ChecklistView = () => {
     auditTitle,
     auditorName,
   } = useAuditStore();
-console.log(draftResponses,
-    updateStatus,
-    openReasonModal,
-    auditTitle,
-    auditorName,)
+  
   if (isLoading)
     return (
       <div className="p-8 text-center text-gray-500">
