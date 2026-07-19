@@ -2,16 +2,19 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "../hooks/useAuthQuery";
 import ProtectedRoute from "./ProtectedRoute";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  const { mutate: login, isPending, isError } = useLogin();
+  const { mutateAsync: loginAsync, isPending, isError } = useLogin();
 
   const submit = async (data) => {
     console.log(data);
-    await login(data);
-    toast.success("loggin success")
+    await loginAsync(data);
+    navigate("home");
+    toast.success("loggin successfull");
   };
   return (
     <div className="content-center h-dvh w-full bg-gray-200">

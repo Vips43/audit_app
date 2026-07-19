@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.use("/api/questions", authenticateUser, questionRoutes);
+app.use("/api/questions", questionRoutes);
 app.use("/api/auth", authRoutes);
 
 app.get("/api/health", (req, res) => {

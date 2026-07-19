@@ -10,8 +10,7 @@ export const useLogin = () => {
       return data;
     },
     onSuccess: (data) => {
-      localStorage.setItem("user", JSON.stringify(data));
-      
+      localStorage.setItem("user", JSON.stringify(data));      
     },
     onError: (error) => {
       console.log("login failed", error);

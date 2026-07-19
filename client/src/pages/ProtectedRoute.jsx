@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAuthStore } from "../store/store";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -10,8 +9,9 @@ function ProtectedRoute() {
     setUser();
   }, [setUser]);
 
-  if (!user) return <Navigate to={"/"} replace />;
-else return <Navigate to={'/q'} replace/>
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
   return <Outlet />;
 }
 

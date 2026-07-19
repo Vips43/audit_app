@@ -1,29 +1,44 @@
 import "./App.css";
 import { ChecklistView } from "./components/CheckListView";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./pages/Login";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import { ToastContainer, toast } from 'react-toastify';
-
+import { ToastContainer, toast } from "react-toastify";
+import Home from "./pages/Home";
 
 const Layout = () => {
+  const navigate = useNavigate();
   return (
     <>
-      {/* <NotificationManager /> */}
       <ToastContainer position="top-center" autoClose={2000} />
-      <div>
+      <main className="max-h-dvh">
+        <nav>
+          <div className=" flex gap-5">
+            <h2>Navbar</h2>
+            <ul className="flex gap-4 ">
+              <li onClick={() => navigate("/home")}>Home</li>
+            </ul>
+            <ul>
+              <li onClick={() => navigate("/q")}>Questions</li>
+            </ul>
+          </div>
+        </nav>
         <Outlet />
-      </div>
+      </main>
     </>
   );
 };
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />} />
-      <Route index={true} path="/" element={<Login />} />
-      <Route path="" element={<ProtectedRoute />}>
-        <Route path="/q" element={<ChecklistView />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Login />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="home" element={<Home />} />
+          <Route path="q" element={<ChecklistView />} />
+        </Route>
       </Route>
     </Routes>
   );
