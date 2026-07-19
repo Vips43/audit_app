@@ -2,7 +2,7 @@ import { useQuestions, useSubmitAudit } from "../hooks/useAuditQueries";
 import { CheckCircle, XCircle, AlertCircle, Edit3 } from "lucide-react";
 import { useAuditStore } from "../hooks/useAuditStore";
 
-export const ChecklistView = () => {
+function Questions() {
   const { data: questions = [], isLoading, error } = useQuestions();
   const submitAuditMutation = useSubmitAudit();
 
@@ -13,7 +13,7 @@ export const ChecklistView = () => {
     auditTitle,
     auditorName,
   } = useAuditStore();
-  
+
   if (isLoading)
     return (
       <div className="p-8 text-center text-gray-500">
@@ -57,6 +57,7 @@ export const ChecklistView = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+      
       <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">
         {auditTitle}
       </h2>
@@ -70,12 +71,12 @@ export const ChecklistView = () => {
             return (
               <div
                 key={q._id}
-                className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition"
+                className="p-4 border border-gray-400 rounded-lg hover:bg-gray-50 transition"
               >
-                <div className="flex flex-col md:flex-row justify-between items-start  gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                   <div>
                     <span className="text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-600 uppercase tracking-wide">
-                      {q.category}rt
+                      {q.category}
                     </span>
                     <p className="mt-2 text-gray-700 font-medium">{q.text}</p>
                     {userReason && (
@@ -136,7 +137,7 @@ export const ChecklistView = () => {
       <button
         onClick={handleSubmit}
         disabled={submitAuditMutation.isPending}
-        className="mt-8 w-full bg-indigo-600 text-white font-semibold py-3 px-4 rounded-md shadow-sm hover:bg-indigo-700 disabled:bg-indigo-300 transition"
+        className="mt-8 w-full bg-indigo-200 text-white font-semibold py-3 px-4 rounded-md shadow-sm hover:bg-indigo-700 disabled:bg-indigo-300 transition"
       >
         {submitAuditMutation.isPending
           ? "Saving Assessment..."
@@ -144,4 +145,6 @@ export const ChecklistView = () => {
       </button>
     </div>
   );
-};
+}
+
+export default Questions;

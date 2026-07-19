@@ -7,13 +7,6 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    hmr: {
-      port: 3000,        // HMR websocket on same port
-    },
-    watch: {
-      usePolling: true,  // needed on Windows
-      interval: 300,
-    },
     proxy: {
       "/api": {
         target: "http://localhost:5000",

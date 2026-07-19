@@ -24,7 +24,7 @@ function Login() {
   };
 
   return (
-    <div className="content-center h-dvh w-full bg-gray-200">
+    <div className="content-center h-full w-full bg-gray-200">
       <form
         onSubmit={handleSubmit(submit)}
         className="mx-auto outline outline-gray-400 shadow-lg max-w-2xs rounded bg-white p-5 *:flex *:flex-col "
