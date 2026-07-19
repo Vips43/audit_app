@@ -3,8 +3,9 @@ import { ChecklistView } from "./components/CheckListView";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Login from "./pages/Login";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home";
+
 
 const Layout = () => {
   const navigate = useNavigate();

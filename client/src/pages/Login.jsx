@@ -11,7 +11,7 @@ function Login() {
   const { mutateAsync: loginAsync, isPending, isError } = useLogin();
 
   const submit = async (data) => {
-    console.log(data);
+    
     await loginAsync(data);
     navigate("home");
     toast.success("loggin successfull");

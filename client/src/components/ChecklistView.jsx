@@ -6,7 +6,6 @@ export const ChecklistView = () => {
   const { data: questions = [], isLoading, error } = useQuestions();
   const submitAuditMutation = useSubmitAudit();
 
-  // Extract variables and functions from Zustand
   const {
     draftResponses,
     updateStatus,
@@ -14,7 +13,11 @@ export const ChecklistView = () => {
     auditTitle,
     auditorName,
   } = useAuditStore();
-
+console.log(draftResponses,
+    updateStatus,
+    openReasonModal,
+    auditTitle,
+    auditorName,)
   if (isLoading)
     return (
       <div className="p-8 text-center text-gray-500">
@@ -73,10 +76,10 @@ export const ChecklistView = () => {
                 key={q._id}
                 className="p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition"
               >
-                <div className="flex justify-between items-start gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-start  gap-4">
                   <div>
                     <span className="text-xs font-semibold px-2 py-1 rounded bg-gray-100 text-gray-600 uppercase tracking-wide">
-                      {q.category}
+                      {q.category}rt
                     </span>
                     <p className="mt-2 text-gray-700 font-medium">{q.text}</p>
                     {userReason && (

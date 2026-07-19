@@ -38,7 +38,7 @@ const mongourl =
   process.env.NODE_ENV === "development"
     ? process.env.MONGO_LOCAL
     : process.env.MONGO_URI;
-
+app.get('/hi', (req,res)=>res.send("hello"))
 mongoose
   .connect(mongourl)
   .then((conn) =>
